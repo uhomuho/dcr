@@ -1,0 +1,36 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  postgres:
+    restart: unless-stopped
+    image: postgres:alpine
+    container_name: dcr-pg
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: admin
+      POSTGRES_DB: dcr
+    ports:
+      - 1234:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  minio:
+    restart: unless-stopped
+    image: minio/minio
+    hostname: minio
+    container_name: dcr-minio
+    command: server /data --address :8888 --console-address :9001
+    volumes:
+      - minio_data:/data
+    ports:
+      - 3333:8888
+      - 3004:9001
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+
+volumes:
+  minio_data:
+  postgres_data:
