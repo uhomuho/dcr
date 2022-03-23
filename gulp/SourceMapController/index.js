@@ -48,9 +48,15 @@ module.exports = class SourceMapController {
 			if (!this.#sourceMap[this.#chunk_ext])
 				this.#sourceMap[this.#chunk_ext] = {}
 
-			if (this.#sourceMap[this.#chunk_ext][this.#source])
-				await fs.unlink(path.join(__dirname, "..", "..", "public", this.#chunk_ext, `${this.#sourceMap[this.#chunk_ext][this.#source]}.${this.#chunk_ext}`))
-					.catch(console.error)
+			if (this.#sourceMap[this.#chunk_ext][this.#source]) {
+				const filePath = path.join(__dirname, "..", "..", "public", this.#chunk_ext, `${this.#sourceMap[this.#chunk_ext][this.#source]}.${this.#chunk_ext}`)
+				const fileExist = await fs.access(filePath).catch(() => false)
+
+				if (fileExist)
+					await fs.rm(filePath)
+						.catch(console.error)
+				
+			}
 	
 			this.#sourceMap[this.#chunk_ext][this.#source] = this.#chunk
 			

@@ -22,7 +22,6 @@ module.exports = () => {
 	// При добавлении или удалении файла, перезапускаем наблюдение за изменениями в проекте
 	const folders = [
 		"src/js/*.js",
-		"src/img/*",
 		"src/scss/*.scss"
 	]
 	gulp.watch(folders, { events: ['add', 'unlink'] }, gulp.series( reload ))

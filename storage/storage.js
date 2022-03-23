@@ -9,7 +9,7 @@ const client = new Minio.Client({
 })
 
 client.listBuckets()
-	.then(() => console.log("Successfully connected to database storage"))
+	.then(() => console.log("Successfully connected to file storage"))
 	.catch(() => {
 		throw new Error("Minio connection error")
 	})

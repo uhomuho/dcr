@@ -8,15 +8,14 @@ const sassOptions = { includePaths: [ "node_modules", "src/scss" ] }
 
 const autoprefixerOptions = [ ['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true } ]
 
-const purgeOptions = file => {
-	return {
-		content: [ "views/*.pug", "views/mixins/*.pug", `src/js/**/**/**/${file}.vue` ],
-		defaultExtractor: content => {
-			const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []
-			const innerMatches = content.match(/[^<>"'`\s.()]*[^<>"'`\s.():]/g) || []
-			return broadMatches.concat(innerMatches)
-		}
-	}
+const purgeOptions = {
+	content: [ "views/*.pug", "views/mixins/*.pug", `src/js/**/**/**/**/*.vue` ],
+	defaultExtractor: content => {
+		const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []
+		const innerMatches = content.match(/[^<>"'`\s.()]*[^<>"'`\s.():]/g) || []
+		return broadMatches.concat(innerMatches)
+	},
+	safelist: [ /-(leave|enter|appear)(|-(to|from|active))$/, /^(?!(|.*?:)cursor-move).+-move$/, /^router-link(|-active)$/, /data-v-.*/ ]
 }
 
 module.exports = (file = null, mode = process.env.NODE_ENV) => {
@@ -26,7 +25,7 @@ module.exports = (file = null, mode = process.env.NODE_ENV) => {
 
 		if (mode == "production")
 			stream = stream
-				.pipe( purge( purgeOptions( file.replace(".scss", "") ) ) )
+				.pipe( purge( purgeOptions ) )
 				.pipe( autoprefixer(...autoprefixerOptions) )
 				.on("data", file => {
 					const bufer = new CleanCSS().minify(file.contents)

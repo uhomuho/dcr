@@ -11,8 +11,22 @@ module.exports = sequelize => {
 		transmission_ru: DataTypes.TEXT,
 		transmission_en: DataTypes.TEXT,
 		seats: DataTypes.INTEGER, // место, места, мест
-		navigation: DataTypes.BOOLEAN,
-		equipment: DataTypes.JSONB
+		navigation: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false
+		},
+		equipment: {
+			type: DataTypes.JSONB,
+			defaultValue: []
+		},
+		freeDelivery: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false
+		},
+		fastDelivery: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false
+		},
 	}, {
 		modelName: "option",
 		timestamps: false,

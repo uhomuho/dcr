@@ -1,3 +1,5 @@
+console.clear()
+
 require("dotenv").config()
 
 const { series } = require("gulp")
@@ -14,7 +16,7 @@ exports["img"] = img()
 
 exports["clear"] = series( clear )
 
-exports["build"] = series( clear, webpack(), scss(), img() )
+exports["build"] = series( clear, scss(), img(), webpack() )
 
 exports["watch"] = watch
 exports["autoreload"] = autoreload

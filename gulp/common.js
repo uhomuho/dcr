@@ -19,18 +19,20 @@ exports.getDirs = path => {
 }
 
 exports.generateWatch = (ext, fn) => {
-	Promise.resolve( exports.getFiles(`src/${ext}`) )
-		.then(files => {
-			const dirs = exports.getDirs(`src/${ext}`)
+	const files = exports.getFiles(`src/${ext}`)
+	
+	const dirs = exports.getDirs(`src/${ext}`)
 
-			files.forEach(file => {
-				watch(`src/${ext}/${file}`, fn(file))
-				const dir = dirs.find(dir => dir == file.replace(`.${ext}`))
+	files.forEach(file => {
+		watch(`src/${ext}/${file}`, fn(file))
+		const dir = dirs.find(dir => dir == file.replace(`.${ext}`, ""))
+		
+		if (dir)
+			watch(`src/${ext}/${dir}/**/**/**/*`, fn(file))
 
-				if (dir)
-					watch(`src/${ext}/${dir}/**/**/**/*`, fn(file))
-			})
-		})
+		if (file == "client.js")
+			watch(`src/scss/**/**/**/*`, fn(file))
+	})
 }
 
 exports.wrapper = (path, ext, handler, file) => {
@@ -57,4 +59,13 @@ exports.wrapper = (path, ext, handler, file) => {
 
 	fn.displayName = `Compile ${file || ext[0]}`
 	return gulp.series(fn)
+}
+
+exports.browserReload = () => {
+	const reload = cb => {
+		browserSync.reload()
+		cb();
+	}
+	reload.displayName = "Browser Reload"
+	return reload
 }

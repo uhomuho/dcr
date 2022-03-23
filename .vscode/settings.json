@@ -1,0 +1,9 @@
+{
+	"path-intellisense.mappings": {
+		"@": "${workspaceRoot}/src/js/admin",
+		"@tpl": "${workspaceRoot}/src/js/admin/templates",
+		"@c": "${workspaceRoot}/src/js/components",
+		"@api": "${workspaceRoot}/src/js/admin/api/controllers",
+		"@p": "${workspaceRoot}/public"
+	}
+}

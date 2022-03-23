@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+@import "bulma/bulma";
+
+@import "./header";
+@import "./footer";
+
+body, html {
+	font-family: 'Montserrat', sans-serif;
+}
+
+.is-absolute {
+	position: absolute;
+}
+
+a:hover {
+	text-shadow: 0px 0px 1px #fff;
+}
+
+.hero-body {
+	flex-direction: column;
+	padding: 0;
+}

@@ -5,13 +5,15 @@ module.exports = sequelize => {
 
 	Car.init({
 		name: DataTypes.TEXT,
-		path: DataTypes.TEXT,
+		slug: DataTypes.TEXT,
 		price: DataTypes.FLOAT,
 		deposit: DataTypes.FLOAT,
 		show: DataTypes.BOOLEAN,
 		year: DataTypes.INTEGER,
-		freeDelivery: DataTypes.BOOLEAN,
-		fastDelivery: DataTypes.BOOLEAN
+		active: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: true
+		}
 	}, {
 		modelName: "car",
 		timestamps: false,

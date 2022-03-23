@@ -19,10 +19,7 @@ app.set("views", "views")
 app.set("view engine", "pug")
 
 // Устанавливаем статическую папку сервера
-app.use( express.static("public") )
-
-// Подключаем middleware
-app.use( require("./middleware/renderFunctions") )
+app.use("/", express.static("public") )
 
 // Маршруты приложения
 app.use( require("./router") )

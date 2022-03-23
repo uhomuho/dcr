@@ -1,0 +1,62 @@
+@import "./layout";
+
+.head {
+	background: #0876B3;
+	box-shadow: 0px 4px 20px rgba(0, 12, 29, 0.2);
+	.section {
+		padding: {
+			top: 0;
+			bottom: 0;
+		};
+	}
+	.logo {
+		height: 6.1rem;
+		top: 4rem;
+		left: 0;
+	}
+	.total {
+		padding-left: 1rem;
+		bottom: 4rem;
+		left: 0;
+		&::before {
+			display: block;
+			content: "";
+			height: 100%;
+			width: .25rem;
+			background-color: #fff;
+			border-radius: 20px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		p {
+			font-size: 1.5rem;
+			line-height: 1.8125rem;
+			color: #fff;
+		}
+	}
+	.columns {
+		margin: {
+			top: 0;
+			bottom: 0;
+		};
+	}
+	.content {
+		height: 100%;
+		h1, p {
+			text-align: right;
+			color: #fff;
+			width: 100%;
+		}
+		h1 {
+			font-size: 4.25rem;
+			font-weight: 700;
+			text-shadow: 0px 4px 4px rgba(7, 11, 88, 0.25);
+			text-transform: uppercase;
+			margin-bottom: .75rem;
+		}
+		p {
+			font-size: 1.5rem;
+		}
+	}
+}

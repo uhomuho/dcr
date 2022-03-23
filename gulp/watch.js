@@ -4,7 +4,7 @@ const { watch } = require("gulp"),
 const webpack = require("./webpack"),
 			scss = require("./scss"),
 			img = require("./img"),
-			{ generateWatch } = require("./common")
+			{ generateWatch, browserReload: reload } = require("./common")
 
 module.exports = () => {
 	
@@ -15,15 +15,16 @@ module.exports = () => {
 		open: process.env.RESTART == "false"
 	})
 
-	watch("public/**/**/**/**/**/*").on("change", browserSync.reload)
+	watch("public/**/**/**/**/**/*", reload())
 
 	// При изменении шаблонов страниц, перезагружаем окно браузера
-	watch("views/**/**/**/**/*.pug").on("change", browserSync.reload)
+	watch("views/**/**/**/**/*.pug", reload())
 
 	// При изменении файлов js запускаем сборку js
 	generateWatch("js", webpack)
 
 	// При изменении файлов scss запускаем сборку css
+	watch("src/scss/(layout|common)/**/**/*.scss", scss())
 	generateWatch("scss", scss)
 
 	// При изменении картиночек, минифицируем и конвертируем их в webp
